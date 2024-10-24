@@ -31,15 +31,15 @@ def stringIt(Z):
     """Map atomic number to element symbol. Return 'none' if Z is not found."""
     return ELEMENTS.get(Z, 'none')
 
-def get_non_table(Z, A):
+def get_table(Z, A, type='nonelastic'):
     """Download the non-elastic total table for element Z and mass number A if the URL exists."""
     element = stringIt(Z)
     if element == 'none':
         print(f"Invalid atomic number: {Z}")
         return
     
-    url = f"{TREPO}/{element}/{element}{str(A).zfill(3)}/tables/xs/nonelastic.tot"
-    myfname = os.path.join(OUTDIR, f'talys_g_{element}{A}_non.txt')
+    url = f"{TREPO}/{element}/{element}{str(A).zfill(3)}/tables/xs/{type}.tot"
+    myfname = os.path.join(OUTDIR, f'talys_g_{element}{A}_{type}.txt')
 
     # Create the output directory if it does not exist
     try:
@@ -72,7 +72,9 @@ def get_tables(pid):
             raise ValueError(f"Invalid atomic number: {Z}. Supported range is 1 to 30.")
         if A <= 0:
             raise ValueError(f"Invalid mass number: {A}. Must be a positive integer.")
-        get_non_table(Z, A)
+        get_table(Z, A)
+        get_table(Z, A, 'pprod')
+        get_table(Z, A, 'nprod')
     except ValueError as e:
         print(f"Input error: {e}")
     except Exception as e:
