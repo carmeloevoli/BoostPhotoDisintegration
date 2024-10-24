@@ -5,12 +5,7 @@ plt.style.use('simprop.mplstyle')
 import numpy as np
 import os
 
-from utils import savefig, set_axes
-
-def read_talys(filename):
-    repo = '../tables/TENDL2023/'
-    E, sigma = np.loadtxt(repo + filename, usecols=(0,1), unpack=True)
-    return E, sigma # MeV, mbarn
+from utils import savefig, set_axes, read_talys
 
 def plot_talys(element_id=(56, 26), output_file='xsecs_pd_TALYS.pdf'):
     """ Plot the cross-sections for a given element (Z, A). """
