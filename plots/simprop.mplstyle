@@ -16,7 +16,7 @@ font.serif : Palatino
 font.size : 28
 font.weight : 900
 legend.fancybox : False
-legend.fontsize : 22
+legend.fontsize : 19
 legend.frameon : False
 legend.numpoints : 1
 legend.loc : best
