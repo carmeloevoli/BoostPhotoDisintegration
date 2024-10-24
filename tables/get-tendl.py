@@ -82,7 +82,7 @@ def get_tables(pid):
 
 if __name__ == "__main__":
     try:
-        pids = ((6, 12), (8, 16), (26, 56))
+        pids = ((6, 12), (8, 16), (12, 24), (13, 27), (26, 54), (26, 56))
         for pid in pids:
             get_tables(pid)
     except Exception as e:
