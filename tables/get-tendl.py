@@ -3,7 +3,7 @@ import wget
 import subprocess
 from subprocess import Popen, PIPE
 
-from utils import stringIt, url_exists
+from utils import ELEMENTS, stringIt, url_exists
 
 TREPO = 'https://tendl.web.psi.ch/tendl_2023/gamma_file'
 OUTDIR = 'TENDL2023'
