@@ -12,12 +12,12 @@ def count_nucleons(i_n, i_p, i_d, i_t, i_h, i_a):
 
 def nucleon_combinations(A):
     """Generate valid nucleon combinations up to a maximum nucleon count A."""
-    for i_n in range(4):
-        for i_p in range(4):
-            for i_d in range(4):
-                for i_t in range(4):
-                    for i_h in range(4):
-                        for i_a in range(4):
+    for i_n in range(5):
+        for i_p in range(5):
+            for i_d in range(5):
+                for i_t in range(5):
+                    for i_h in range(5):
+                        for i_a in range(5):
                             if count_nucleons(i_n, i_p, i_d, i_t, i_h, i_a) <= A:
                                 yield i_n, i_p, i_d, i_t, i_h, i_a
 
@@ -83,7 +83,7 @@ def get_nucleus(pid):
 
 if __name__ == "__main__":
     try:
-        pid = (6, 12)  # Example for Carbon-12
+        pid = (8, 16)  # Example for Oxygen-16
         get_nucleus(pid)
     except Exception as e:
         print(f"Error in the main routine: {e}")

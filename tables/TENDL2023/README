@@ -1,0 +1,8 @@
+# TENDL-2023 Cross Section Tables
+
+- This directory contains gamma-nuclei cross-section tables. These tables are obtained from the TENDL (TALYS Evaluated Nuclear Data Library).
+
+- The library can be found [here](https://tendl.web.psi.ch/tendl_2023/gamma_html/gamma.html).
+
+- To retrieve or update the cross-section tables from TENDL, use **get-tables.py**.
+  This script automates the download of the cross-section tables directly from the TENDL library.
