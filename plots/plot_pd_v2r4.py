@@ -11,7 +11,7 @@ def plot_v2r4(element_id=(56, 26), output_file='xsecs_pd_v2r4.pdf'):
     """ Plot the cross-sections for a given element (Z, A). """
     fig, ax = plt.subplots(figsize=(11.5, 8.5))
     set_axes(ax, xlabel=r'$\epsilon^\prime$ [MeV]', ylabel=r'$\sigma$($\gamma$,X) [mb]',
-             xlim=[0, 100], ylim=[0.01, 300], yscale='log')
+             xlim=[5, 100], ylim=[0.1, 50], yscale='log')
 
     # Read and plot data for neutrons
     E, s_N = read_v2r4(element_id, False)
@@ -22,7 +22,7 @@ def plot_v2r4(element_id=(56, 26), output_file='xsecs_pd_v2r4.pdf'):
     ax.plot(E, s_a, color='tab:red', ls=':', label=r'$\alpha$')
 
     # Plot the sum of both
-    ax.plot(E, s_N + s_a, color='tab:red', ls='-')
+    ax.plot(E, s_N + s_a, color='tab:red', ls='-', label='O16')
 
     # Add legend
     ax.legend()
@@ -35,4 +35,4 @@ def plot_v2r4(element_id=(56, 26), output_file='xsecs_pd_v2r4.pdf'):
         print(f"Error saving figure {output_file}: {e}")
 
 if __name__ == "__main__":
-    plot_v2r4((56, 26), 'xsecs_pd_Fe56_v2r4.pdf')  # Plot for Fe-56 as the default element
+    plot_v2r4((16, 8), 'xsecs_pd_O16_v2r4.pdf')  # Plot for Fe-56 as the default element

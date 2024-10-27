@@ -12,13 +12,13 @@ def plot_talys(element_id=(56, 26), output_file='xsecs_pd_TALYS.pdf'):
     fig, ax = plt.subplots(figsize=(11.5, 8.5))
 
     set_axes(ax, xlabel=r'$\epsilon^\prime$ [MeV]', ylabel=r'$\sigma$($\gamma$,X) [mb]',
-             xlim=[0, 100], ylim=[0.01, 300], yscale='log')
+             xlim=[5, 100], ylim=[0.1, 50], yscale='log')
    
+    E, sigma = read_talys('talys_g_O16_nonelastic.txt')
+    ax.plot(E, sigma, color='tab:blue', label='O16')
+
     # Add legend
     ax.legend()
-
-    E, sigma = read_talys('talys_g_Fe56_non.txt')
-    ax.plot(E, sigma, color='tab:red')
 
     # Save figure using a utility function (ensure error handling in savefig)
     try:
@@ -28,4 +28,4 @@ def plot_talys(element_id=(56, 26), output_file='xsecs_pd_TALYS.pdf'):
         print(f"Error saving figure {output_file}: {e}")
 
 if __name__ == "__main__":
-    plot_talys((56, 26), 'xsecs_pd_Fe56_TALYS.pdf')  # Plot for Fe-56 as the default element
+    plot_talys((16, 8), 'xsecs_pd_O16_TALYS.pdf')  # Plot for Fe-56 as the default element

@@ -2,6 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+def file_exists(filepath):
+    """Check if a file exists at the specified path."""
+    if os.path.isfile(filepath):
+        print(f"File exists: {filepath}")
+        return True
+    else:
+        print(f"File does not exist: {filepath}")
+        return False
+    
 def savefig(fig: plt.Figure, filename: str, dpi: int = 300, bbox_inches: str = 'tight', pad_inches: float = 0.1, transparent: bool = False) -> None:
     """
     Save the given matplotlib figure to a file with enhanced options for better quality.
@@ -98,6 +107,11 @@ def read_talys(filename):
     repo = '../tables/TENDL2023/'
     E, sigma = np.loadtxt(repo + filename, usecols=(0,1), unpack=True)
     return E, sigma # MeV, mbarn
+
+def read_yield(filename):
+    repo = '../tables/TENDL2023/'
+    E, sigma, y = np.loadtxt(repo + filename, usecols=(0,1,2), unpack=True)
+    return E, sigma, y # MeV, mbarn
 
 def read_v2r4(id, doAlpha=False):
     """ Read the cross-section data and return energy (E) and cross-section (s) arrays. """

@@ -6,7 +6,7 @@ import numpy as np
 
 from utils import savefig, set_axes, plot_data, read_talys, read_v2r4
 
-def plot_exfor_Fe54(output_file='xsecs_exfor_Fe54.pdf'):
+def plot_exfor_Fe54(output_file='xsecs_pd_Fe54_EXFOR.pdf'):
     """ Plot the cross-sections for a given element (Z, A). """
     fig, ax = plt.subplots(figsize=(11.5, 8.5))
     set_axes(ax, xlabel=r'$\epsilon^\prime$ [MeV]', ylabel=r'$\sigma$($\gamma$,X) [mb]',
@@ -33,7 +33,7 @@ def plot_exfor_Fe54(output_file='xsecs_exfor_Fe54.pdf'):
     except Exception as e:
         print(f"Error saving figure {output_file}: {e}")
 
-def plot_exfor_Al27(output_file='xsecs_exfor_Al27.pdf'):
+def plot_exfor_Al27(output_file='xsecs_pd_Al27_EXFOR.pdf'):
     """ Plot the cross-sections for a given element (Z, A). """
     fig, ax = plt.subplots(figsize=(11.5, 8.5))
     set_axes(ax, xlabel=r'$\epsilon^\prime$ [MeV]', ylabel=r'$\sigma$($\gamma$,X) [mb]',
@@ -64,7 +64,7 @@ def plot_exfor_Al27(output_file='xsecs_exfor_Al27.pdf'):
     except Exception as e:
         print(f"Error saving figure {output_file}: {e}")
 
-def plot_exfor_Mg24(output_file='xsecs_exfor_Mg24.pdf'):
+def plot_exfor_Mg24(output_file='xsecs_pd_Mg24_EXFOR.pdf'):
     """ Plot the cross-sections for a given element (Z, A). """
     fig, ax = plt.subplots(figsize=(11.5, 8.5))
     set_axes(ax, xlabel=r'$\epsilon^\prime$ [MeV]', ylabel=r'$\sigma$($\gamma$,X) [mb]',
@@ -92,14 +92,14 @@ def plot_exfor_Mg24(output_file='xsecs_exfor_Mg24.pdf'):
     except Exception as e:
         print(f"Error saving figure {output_file}: {e}")
 
-def plot_exfor_O16(output_file='xsecs_exfor_O16.pdf'):
+def plot_exfor_O16(output_file='xsecs_pd_O16_EXFOR.pdf'):
     """ Plot the cross-sections for a given element (Z, A). """
     fig, ax = plt.subplots(figsize=(11.5, 8.5))
     set_axes(ax, xlabel=r'$\epsilon^\prime$ [MeV]', ylabel=r'$\sigma$($\gamma$,X) [mb]',
-             xlim=[5, 50], ylim=[0, 50], yscale='linear')
+             xlim=[5, 50], ylim=[0, 35], yscale='linear')
 
-    plot_data(ax=ax, filename='g_O16_abs_L0064.004.txt', color='tab:gray', label='Bezic+1969', zorder=1)
-    plot_data(ax=ax, filename='g_O16_abs_L0083.004.txt', color='tab:orange', label='Ahrens+1972', zorder=2)
+    plot_data(ax=ax, filename='g_O16_abs_L0064.004.txt', color='tab:brown', label='Bezic+1969', zorder=1)
+    plot_data(ax=ax, filename='g_O16_abs_L0083.004.txt', color='tab:green', label='Ahrens+1972', zorder=2)
     plot_data(ax=ax, filename='g_O16_abs_L0122.004.txt', color='tab:purple', label='Wyckoff+1975', zorder=3)
 
     E, sigma = read_talys('talys_g_O16_nonelastic.txt')
@@ -107,9 +107,9 @@ def plot_exfor_O16(output_file='xsecs_exfor_O16.pdf'):
 
     E, sigma_n = read_v2r4((16, 8), False)
     E, sigma_a = read_v2r4((16, 8), True)
-    ax.plot(E, sigma_n + sigma_a, color='g', zorder=9, label='v2r4', linestyle='--', lw=3.5)
+    ax.plot(E, sigma_n + sigma_a, color='r', zorder=9, label='v2r4', linestyle='--', lw=3.5)
 
-    ax.text(8, 44, 'O16', fontsize=30)
+    ax.text(8, 30, 'O16', fontsize=30)
    
     # Add legend
     ax.legend()
@@ -122,7 +122,7 @@ def plot_exfor_O16(output_file='xsecs_exfor_O16.pdf'):
         print(f"Error saving figure {output_file}: {e}")
 
 if __name__ == "__main__":
-    plot_exfor_Fe54()   
-    plot_exfor_Al27()   
-    plot_exfor_Mg24()   
+    # plot_exfor_Fe54()   
+    # plot_exfor_Al27()   
+    # plot_exfor_Mg24()   
     plot_exfor_O16()   
