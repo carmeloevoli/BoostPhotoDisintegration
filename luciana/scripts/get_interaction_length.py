@@ -12,6 +12,7 @@ T0 = 2.7             # K
 
 mbarn = 1.e-31 # m^2
 Mpc = 3.086e22 # m
+MeV = 1.e6     # eV  
 
 # ----------------------------------------------------------------------------------------------------
 def execute_get_cross_section_v2r4(A, Z, ipart):
@@ -35,18 +36,36 @@ def I(eps, Gmm): # CMB
     return -(kB * T0) / (np.pi**2 * (hbar * c)**3) * np.log(1. - np.exp(-(eps)/(2 * Gmm * kB * T0)))
 
 # ----------------------------------------------------------------------------------------------------
+# def plot_losses_integral(): # Intermediate step to check results
+     
+#     eps = np.logspace(-5, 2, num = 100)
+
+#     data_comparison = np.loadtxt('losses_integral_slides.dat')
+
+#     plt.figure()
+#     plt.plot(eps, eps * I(eps, 1./2.), color = 'red', label = 'Luciana')
+#     plt.plot(data_comparison[:,0], data_comparison[:,1], color = 'k', ls = '--', label = 'Carmelo')
+#     plt.xscale('log')
+#     plt.yscale('log')
+#     plt.ylim([0.1, 1.e13])
+#     plt.xlabel(r'$\epsilon \: \rm [eV]$')
+#     plt.ylabel(r'$\epsilon I(\epsilon) \: \rm [eV^{-1} m^{-3}]$')
+#     plt.legend()
+#     plt.show()
+
+# ----------------------------------------------------------------------------------------------------
 def interaction_length(A, Z, Gmm):
 
-    eps = execute_get_cross_section_v2r4(A, Z, 'N')[0]
+    eps = execute_get_cross_section_v2r4(A, Z, 'N')[0] * MeV
     cross_section = (execute_get_cross_section_v2r4(A, Z, 'N')[1] + execute_get_cross_section_v2r4(A, Z, 'alpha')[1]) * mbarn
     mask = cross_section > 0
     eps = eps[mask]
     cross_section = cross_section[mask]  
 
-    integrand_interaction_rate = A * c / (2 * Gmm**2) * eps * cross_section * I(eps, Gmm)
+    integrand_interaction_rate = c / (2 * Gmm**2) * eps * cross_section * I(eps, Gmm)
     interaction_rate = simps(integrand_interaction_rate, eps)
     
-    return c * interaction_rate**-1 / Mpc
+    return c * A * interaction_rate**-1 / Mpc
 
 # ----------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
@@ -56,5 +75,8 @@ if __name__ == '__main__':
     Gmm = float(sys.argv[3])
 
     print(interaction_length(A, Z, Gmm))
+
+    # Intermediate steps to check results
+    # plot_losses_integral()
 
 # ----------------------------------------------------------------------------------------------------

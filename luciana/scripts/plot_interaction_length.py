@@ -2,8 +2,8 @@ from matplotlib import pyplot as plt
 import numpy as np 
 import subprocess
 
-nucleiList = np.array([[56, 26]])
-# nucleiList = np.array([[14, 7], [28, 14], [56, 26]])
+# nucleiList = np.array([[56, 26]])
+nucleiList = np.array([[14, 7], [28, 14], [56, 26]])
 
 plt.rcParams.update({'legend.fontsize': 'large',
 'legend.title_fontsize': 'large',
@@ -32,7 +32,7 @@ def execute_get_interaction_length(A, Z, Gmm):
 # ----------------------------------------------------------------------------------------------------
 def get_interaction_length_array(A, Z):
 
-    Gmm = np.logspace(5, 15, num = 50) / A
+    Gmm = np.logspace(9, 12, num = 50) / A
     interaction_length = np.zeros_like(Gmm)
 
     for i in range(len(interaction_length)):
@@ -42,7 +42,7 @@ def get_interaction_length_array(A, Z):
 
 # ----------------------------------------------------------------------------------------------------
 def plot_interaction_length():
-
+    
     plt.figure()
 
     for nuclei in nucleiList:
@@ -51,6 +51,8 @@ def plot_interaction_length():
         plt.plot(np.log10(E), interaction_length, label = f'A = {A}, Z = {Z}')
     
     plt.yscale('log')
+    plt.xlim([18, 21])
+    plt.ylim(top = 1.e4)
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
     plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
     plt.legend()
