@@ -28,10 +28,7 @@ def execute_get_cross_section_TENDL2023(A, Z):
     
     eps, cross_section = [ast.literal_eval(line) for line in output.stdout.strip().split('\n')]
 
-    eps = np.array(eps)
-    cross_section = np.array(cross_section)
-
-    return eps, cross_section
+    return np.array(eps), np.array(cross_section)
 
 # ----------------------------------------------------------------------------------------------------
 def execute_get_cross_section_v2r4(A, Z, ipart):
@@ -47,10 +44,7 @@ def execute_get_cross_section_v2r4(A, Z, ipart):
     
     eps, cross_section = [ast.literal_eval(line) for line in output.stdout.strip().split('\n')]
 
-    eps = np.array(eps)
-    cross_section = np.array(cross_section)
-
-    return eps, cross_section
+    return np.array(eps), np.array(cross_section)
 
 # ----------------------------------------------------------------------------------------------------
 def select_color(A, Z):

@@ -28,10 +28,7 @@ def execute_get_cross_section_v2r4(A, Z, ipart):
     
     eps, cross_section = [ast.literal_eval(line) for line in output.stdout.strip().split('\n')]
 
-    eps = np.array(eps)
-    cross_section = np.array(cross_section)
-
-    return eps, cross_section
+    return np.array(eps), np.array(cross_section)
 
 # ----------------------------------------------------------------------------------------------------
 def select_color(A, Z):
@@ -121,8 +118,8 @@ def plot_all_cross_sections_v2r4():
     sm = plt.cm.ScalarMappable(cmap = colormap, norm = plt.Normalize(vmin = unique_A_values.min(), vmax = unique_A_values.max()))
     plt.colorbar(sm, ax = plt.gca(), label = r'Mass number, $A$')
 
-    plt.savefig('../runs/figures/cross-sections/all_cross_sections_v2r4.pdf', bbox_inches='tight')
-    plt.savefig('../runs/figures/cross-sections/all_cross_sections_v2r4.png', bbox_inches='tight', dpi = 300)
+    plt.savefig('../runs/figures/cross-sections/all_cross_sections_v2r4.pdf', bbox_inches = 'tight')
+    plt.savefig('../runs/figures/cross-sections/all_cross_sections_v2r4.png', bbox_inches = 'tight', dpi = 300)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------

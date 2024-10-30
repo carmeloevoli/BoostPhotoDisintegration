@@ -2,9 +2,6 @@ from matplotlib import pyplot as plt
 import numpy as np 
 import subprocess
 
-# nucleiList = np.array([[56, 26]])
-nucleiList = np.array([[14, 7], [28, 14], [56, 26]])
-
 plt.rcParams.update({'legend.fontsize': 'large',
 'legend.title_fontsize': 'large',
 'axes.labelsize': 'x-large',
@@ -14,11 +11,15 @@ plt.rcParams.update({'legend.fontsize': 'large',
 
 mp = 1.e9 # 1 GeV 
 
+xs_modelList = ['v2r4', 'TENDL-2023']
+# nucleiList = np.array([[56, 26]])
+nucleiList = np.array([[14, 7], [28, 14], [56, 26]])
+
 # ----------------------------------------------------------------------------------------------------
-def execute_get_interaction_length(A, Z, Gmm):
+def execute_get_interaction_length(A, Z, Gmm, model):
 
     output = subprocess.run(
-        ['python3', 'get_interaction_length.py', str(A), str(Z), str(Gmm)],
+        ['python3', 'get_interaction_length.py', str(A), str(Z), str(Gmm), model],
         capture_output = True,
         text = True
     )
@@ -30,30 +31,32 @@ def execute_get_interaction_length(A, Z, Gmm):
     return interaction_length
 
 # ----------------------------------------------------------------------------------------------------
-def get_interaction_length_array(A, Z):
+def get_interaction_length_array(A, Z, model):
 
-    Gmm = np.logspace(9, 12, num = 50) / A
+    Gmm = np.logspace(10, 12, num = 50) / A
     interaction_length = np.zeros_like(Gmm)
 
     for i in range(len(interaction_length)):
-        interaction_length[i] = execute_get_interaction_length(A, Z, Gmm[i])
+        interaction_length[i] = execute_get_interaction_length(A, Z, Gmm[i], model)
 
     return Gmm * A * mp, interaction_length
 
 # ----------------------------------------------------------------------------------------------------
 def plot_interaction_length():
-    
+
     plt.figure()
 
-    for nuclei in nucleiList:
-        A, Z = nuclei
-        E, interaction_length = get_interaction_length_array(A, Z)
-        plt.plot(np.log10(E), interaction_length, label = f'A = {A}, Z = {Z}')
-    
+    for xs_model in xs_modelList:
+        for nuclei in nucleiList:
+            A, Z = nuclei
+            E, interaction_length = get_interaction_length_array(A, Z, xs_model)
+            plt.plot(np.log10(E), interaction_length)
+
+    # plt.xscale('log')    
     plt.yscale('log')
-    plt.xlim([18, 21])
     plt.ylim(top = 1.e4)
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
+    # plt.xlabel(r'Nucleus Lorentz factor, $\Gamma$')
     plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
     plt.legend()
     plt.show()
