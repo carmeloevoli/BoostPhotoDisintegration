@@ -47,7 +47,7 @@ def get_tables(Z, A):
         return
 
     # Define output directory for this element and ensure it exists
-    outdir = os.path.join(OUTDIR, f"{element}{str(A).zfill(3)}")
+    outdir = os.path.join(OUTDIR, f"{element}{str(A).zfill(2)}")
     try:
         os.makedirs(outdir, exist_ok=True)
     except OSError as e:
@@ -83,7 +83,7 @@ def get_nucleus(pid):
 
 if __name__ == "__main__":
     try:
-        pid = (8, 16)  # Example for Oxygen-16
+        pid = (26, 56)  # Example for Oxygen-16
         get_nucleus(pid)
     except Exception as e:
         print(f"Error in the main routine: {e}")

@@ -122,7 +122,7 @@ def plot_exfor_O16(output_file='xsecs_pd_O16_EXFOR.pdf'):
         print(f"Error saving figure {output_file}: {e}")
 
 if __name__ == "__main__":
-    # plot_exfor_Fe54()   
-    # plot_exfor_Al27()   
-    # plot_exfor_Mg24()   
+    plot_exfor_Fe54()   
+    plot_exfor_Al27()   
+    plot_exfor_Mg24()   
     plot_exfor_O16()   
