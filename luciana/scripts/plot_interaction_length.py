@@ -65,7 +65,7 @@ def get_color_inverted_colors(A, Z):
     elif A == 56 and Z == 26:
         return '#40E0D0'
     elif A == 195 and Z == 78:
-        return '#D3D3D3'
+        return '#ADFF2F'
 
 # ----------------------------------------------------------------------------------------------------
 def plot_interaction_length():
@@ -114,14 +114,70 @@ def plot_interaction_length():
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
-def plot_interaction_length_inverted_colors(): # Write the code
+def plot_interaction_length_inverted_colors():
 
-    plt.figure()
+    fig, ax = plt.subplots()
+
+    for xs_model in xs_models:
+
+        for nucleus in nuclei:
+
+            A, Z = nucleus
+            data = np.loadtxt('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
+            E = data[:,0]
+            interaction_length = data[:,1]
+
+            if xs_model == 'v2r4':
+                plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(A, Z), ls = '--')
+
+            elif xs_model == 'TENDL-2023':
+                if A == 28 and Z == 14:
+                    mask = interaction_length >= 0 
+                    E = E[mask]
+                    interaction_length = interaction_length[mask]
+                plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
+
+    data = np.loadtxt('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    E = data[:,0]
+    interaction_length = data[:,1]
+    plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
+    print()
+
+    TENDL2023 = lines.Line2D([], [], color = 'white', ls = '-', label = 'TALYS-2.0')
+    v2r4 = lines.Line2D([], [], color = 'white', ls = '--', label = 'SimProp v2r4')
+    lgnd = plt.legend(title = 'Cross section', handles = [TENDL2023, v2r4], loc = 'lower left', labelcolor = 'white', facecolor = (75/255, 0, 50/255, 0.5), edgecolor = 'white')	
+    lgnd.get_title().set_color('white')
+    plt.gca().add_artist(lgnd)
+
+    plt.yscale('log')
+    plt.ylim(top = 1.e4)
+    plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
+    plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
+    
+    fig.patch.set_alpha(0) 
+    ax.set_facecolor('none')  
+
+    for spine in ax.spines.values():
+        spine.set_color('white')
+    ax.xaxis.label.set_color('white')
+    ax.yaxis.label.set_color('white')
+    ax.tick_params(axis = 'x', colors=  'white')
+    ax.tick_params(axis = 'y', colors = 'white')
+    ax.tick_params(axis = 'both', which = 'minor', colors = 'white')  
+    legend = ax.legend(title = 'Nucleus', loc = 'lower left', bbox_to_anchor = (0., 0.234), 
+                   labelcolor = 'white', facecolor = (75/255, 0, 50/255, 0.5), edgecolor = 'white')
+    legend.get_title().set_color('white')
+
+    ax.grid(color = 'gray', linewidth = 0.5)
+
+    plt.savefig('../runs/figures/interactionLength_invertedColors.pdf', bbox_inches = 'tight')
+    plt.savefig('../runs/figures/interactionLength_invertedColors.png', bbox_inches = 'tight', dpi = 600)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-    plot_interaction_length()
+    # plot_interaction_length()
+    plot_interaction_length_inverted_colors()
 
 # ----------------------------------------------------------------------------------------------------
