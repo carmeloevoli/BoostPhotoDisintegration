@@ -72,13 +72,14 @@ def plot_interaction_length():
 
     plt.figure()
     plt.axhline(c/H0/Mpc, color = 'gray', ls = ':') # Adiabatic losses
+    plt.text(21.5, 5.e3, r'Adiabatic losses', color = 'gray', horizontalalignment = 'center', fontsize = 'large')
 
     for xs_model in xs_models:
 
         for nucleus in nuclei:
 
             A, Z = nucleus
-            data = np.loadtxt('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
+            data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
             E = data[:,0]
             interaction_length = data[:,1]
 
@@ -92,7 +93,7 @@ def plot_interaction_length():
                     interaction_length = interaction_length[mask]
                 plt.plot(np.log10(E), interaction_length, color = get_color(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
 
-    data = np.loadtxt('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
     E = data[:,0]
     interaction_length = data[:,1]
     plt.plot(np.log10(E), interaction_length, color = get_color(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
@@ -108,9 +109,8 @@ def plot_interaction_length():
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
     plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
     plt.legend(title = 'Nucleus', loc = 'lower left', bbox_to_anchor = (0., 0.234))
-    plt.grid()
-    plt.savefig('../runs/figures/interactionLength.pdf', bbox_inches = 'tight')
-    plt.savefig('../runs/figures/interactionLength.png', bbox_inches = 'tight', dpi = 600)
+    plt.savefig('../figures/interactionLength.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/interactionLength.png', bbox_inches = 'tight', dpi = 600)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
@@ -123,7 +123,7 @@ def plot_interaction_length_inverted_colors():
         for nucleus in nuclei:
 
             A, Z = nucleus
-            data = np.loadtxt('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
+            data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
             E = data[:,0]
             interaction_length = data[:,1]
 
@@ -137,7 +137,7 @@ def plot_interaction_length_inverted_colors():
                     interaction_length = interaction_length[mask]
                 plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
 
-    data = np.loadtxt('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
     E = data[:,0]
     interaction_length = data[:,1]
     plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
@@ -170,14 +170,52 @@ def plot_interaction_length_inverted_colors():
 
     ax.grid(color = 'gray', linewidth = 0.5)
 
-    plt.savefig('../runs/figures/interactionLength_invertedColors.pdf', bbox_inches = 'tight')
-    plt.savefig('../runs/figures/interactionLength_invertedColors.png', bbox_inches = 'tight', dpi = 600)
+    plt.savefig('../figures/interactionLength_invertedColors.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/interactionLength_invertedColors.png', bbox_inches = 'tight', dpi = 600)
+    plt.show()
+
+# ----------------------------------------------------------------------------------------------------
+def plot_interaction_length_TENDL2023():
+
+    plt.figure()
+    plt.axhline(c/H0/Mpc, color = 'gray', ls = ':') # Adiabatic losses
+    plt.text(21.5, 5.e3, r'Adiabatic losses', color = 'gray', horizontalalignment = 'center', fontsize = 'large')
+
+    for nucleus in nuclei:
+
+        A, Z = nucleus
+        data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, 'TENDL-2023'))
+        E = data[:,0]
+        interaction_length = data[:,1]
+
+        if A == 28 and Z == 14:
+            mask = interaction_length >= 0 
+            E = E[mask]
+            interaction_length = interaction_length[mask]
+        
+        plt.plot(np.log10(E), interaction_length, color = get_color(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
+
+    data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    E = data[:,0]
+    interaction_length = data[:,1]
+    plt.plot(np.log10(E), interaction_length, color = get_color(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
+    print()
+
+    plt.yscale('log')
+    plt.xlim([19,22])
+    plt.ylim(top = 1.e4)
+    plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
+    plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
+    plt.legend(title = 'Nucleus', loc = 'lower left')
+    plt.savefig('../figures/interactionLength_TENDL2023.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/interactionLength_TENDL2023.png', bbox_inches = 'tight', dpi = 300)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
     # plot_interaction_length()
-    plot_interaction_length_inverted_colors()
+    # plot_interaction_length_inverted_colors()
+    plot_interaction_length_TENDL2023()
 
 # ----------------------------------------------------------------------------------------------------

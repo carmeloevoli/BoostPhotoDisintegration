@@ -37,7 +37,7 @@ def write_interaction_length_file(A, Z, model):
 
     E, interaction_length = get_interaction_length_array(A, Z, model)
 
-    f = open('../runs/files/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, model), 'w')
+    f = open('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, model), 'w')
     for iE in range(len(E)):
         f.write(str('{:.15e}'.format(E[iE])) + '\t')
         f.write(str('{:.15e}'.format(interaction_length[iE])) + '\n')

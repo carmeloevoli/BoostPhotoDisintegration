@@ -80,8 +80,8 @@ def plot_cross_section_v2r4(A, Z):
     plt.xlabel(r"Photon energy$'\: \rm [MeV]$")
     plt.ylabel(r'Nonelastic cross section$\: \rm [mb]$')
     plt.legend(title = 'Channel')
-    plt.savefig('../runs/figures/cross-sections/cross_section_v2r4_A{0:03}Z{1:03}.pdf'.format(int(A), int(Z)), bbox_inches = 'tight')
-    plt.savefig('../runs/figures/cross-sections/cross_section_v2r4_A{0:03}Z{1:03}.png'.format(int(A), int(Z)), bbox_inches = 'tight', dpi = 300)
+    plt.savefig('../figures/cross-sections/cross_section_v2r4_A{0:03}Z{1:03}.pdf'.format(int(A), int(Z)), bbox_inches = 'tight')
+    plt.savefig('../figures/cross-sections/cross_section_v2r4_A{0:03}Z{1:03}.png'.format(int(A), int(Z)), bbox_inches = 'tight', dpi = 300)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
@@ -118,8 +118,8 @@ def plot_all_cross_sections_v2r4():
     sm = plt.cm.ScalarMappable(cmap = colormap, norm = plt.Normalize(vmin = unique_A_values.min(), vmax = unique_A_values.max()))
     plt.colorbar(sm, ax = plt.gca(), label = r'Mass number, $A$')
 
-    plt.savefig('../runs/figures/cross-sections/all_cross_sections_v2r4.pdf', bbox_inches = 'tight')
-    plt.savefig('../runs/figures/cross-sections/all_cross_sections_v2r4.png', bbox_inches = 'tight', dpi = 300)
+    plt.savefig('../figures/cross-sections/all_cross_sections_v2r4.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/cross-sections/all_cross_sections_v2r4.png', bbox_inches = 'tight', dpi = 300)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
