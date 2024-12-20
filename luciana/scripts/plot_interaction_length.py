@@ -79,7 +79,7 @@ def plot_interaction_length():
         for nucleus in nuclei:
 
             A, Z = nucleus
-            data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
+            data = np.loadtxt('../results/interaction-length/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
             E = data[:,0]
             interaction_length = data[:,1]
 
@@ -93,7 +93,7 @@ def plot_interaction_length():
                     interaction_length = interaction_length[mask]
                 plt.plot(np.log10(E), interaction_length, color = get_color(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
 
-    data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    data = np.loadtxt('../results/interaction-length/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
     E = data[:,0]
     interaction_length = data[:,1]
     plt.plot(np.log10(E), interaction_length, color = get_color(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
@@ -123,7 +123,7 @@ def plot_interaction_length_inverted_colors():
         for nucleus in nuclei:
 
             A, Z = nucleus
-            data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
+            data = np.loadtxt('../results/interaction-length/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, xs_model))
             E = data[:,0]
             interaction_length = data[:,1]
 
@@ -137,7 +137,7 @@ def plot_interaction_length_inverted_colors():
                     interaction_length = interaction_length[mask]
                 plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
 
-    data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    data = np.loadtxt('../results/interaction-length/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
     E = data[:,0]
     interaction_length = data[:,1]
     plt.plot(np.log10(E), interaction_length, color = get_color_inverted_colors(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
@@ -184,7 +184,7 @@ def plot_interaction_length_TENDL2023():
     for nucleus in nuclei:
 
         A, Z = nucleus
-        data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, 'TENDL-2023'))
+        data = np.loadtxt('../results/interaction-length/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(A, Z, 'TENDL-2023'))
         E = data[:,0]
         interaction_length = data[:,1]
 
@@ -195,7 +195,7 @@ def plot_interaction_length_TENDL2023():
         
         plt.plot(np.log10(E), interaction_length, color = get_color(A, Z), ls = '-', label = '{}'.format(get_legend(A, Z)))               
 
-    data = np.loadtxt('../results/lambda/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
+    data = np.loadtxt('../results/interaction-length/interactionLength_A{0:03}Z{1:03}_{2}.dat'.format(nucleus_Pt[0], nucleus_Pt[1], xs_models[1]))
     E = data[:,0]
     interaction_length = data[:,1]
     plt.plot(np.log10(E), interaction_length, color = get_color(nucleus_Pt[0], nucleus_Pt[1]), ls = '-', label = '{}'.format(get_legend(nucleus_Pt[0], nucleus_Pt[1])))
