@@ -35,7 +35,7 @@ def write_interaction_length_difference_percentage_file(A, Z):
     
     for iE in range(len(E)):
         
-        f.write(str('{:.15e}'.format(E[iE]/(A * mp))) + '\t')
+        f.write(str('{:.15e}'.format(E[iE])) + '\t')
         
         relative_difference = abs(lambda_v2r4[iE] - lambda_TENDL2023[iE]) / lambda_TENDL2023[iE]
     

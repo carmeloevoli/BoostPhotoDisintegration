@@ -72,7 +72,7 @@ def plot_interaction_length():
 
     plt.figure()
     plt.axhline(c/H0/Mpc, color = 'gray', ls = ':') # Adiabatic losses
-    plt.text(21.5, 5.e3, r'Adiabatic losses', color = 'gray', horizontalalignment = 'center', fontsize = 'large')
+    plt.text(21.625, 5.e3, r'Adiabatic losses', color = 'gray', horizontalalignment = 'center', fontsize = 'large')
 
     for xs_model in xs_models:
 
@@ -100,7 +100,7 @@ def plot_interaction_length():
     print()
 
     TENDL2023 = lines.Line2D([], [], color = 'black', ls = '-', label = 'TENDL-2023')
-    v2r4 = lines.Line2D([], [], color = 'black', ls = '--', label = 'SimProp v2r4')
+    v2r4 = lines.Line2D([], [], color = 'black', ls = '--', label = r'$SimProp$ v2r4')
     lgnd = plt.legend(title = 'Cross section', handles = [TENDL2023, v2r4], frameon = True, loc = 'lower left')	
     plt.gca().add_artist(lgnd)
 
@@ -108,7 +108,7 @@ def plot_interaction_length():
     plt.ylim(top = 1.e4)
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
     plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
-    plt.legend(title = 'Nucleus', loc = 'lower left', bbox_to_anchor = (0., 0.234))
+    plt.legend(title = 'Nucleus', loc = 'lower left', bbox_to_anchor = (0., 0.239))
     plt.savefig('../figures/interactionLength.pdf', bbox_inches = 'tight')
     plt.savefig('../figures/interactionLength.png', bbox_inches = 'tight', dpi = 600)
     plt.show()
@@ -212,10 +212,38 @@ def plot_interaction_length_TENDL2023():
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
+def plot_interaction_length_difference_percentages():
+
+    plt.figure()
+
+    for nucleus in nuclei:
+
+        A, Z = nucleus
+        data = np.loadtxt(f"../results/interaction-length/interactionLengthDifferencePercentages_A{A:03}Z{Z:03}.dat")
+        data_TENDL2023 = np.loadtxt(f"../results/interaction-length/interactionLength_A{A:03}Z{Z:03}_TENDL-2023.dat")
+
+        for iE in range(len(data_TENDL2023)):
+            if abs(data_TENDL2023[iE,1]) < c/H0/Mpc:
+                break
+
+        plt.plot(np.log10(data[:,0][iE:]), data[:,1][iE:], color = get_color(A, Z), label = '{}'.format(get_legend(A, Z)))
+        print(Z, iE)
+
+    plt.yscale('log')
+    plt.ylim([1.e-1, 1.e2])
+    plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
+    plt.ylabel(r'Relative difference$\: [\%]$')
+    plt.legend(title = 'Nucleus', loc = 'lower left')
+    plt.savefig('../figures/interactionLengthRelativeDifferences.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/interactionLengthRelativeDifferences.png', bbox_inches = 'tight', dpi = 300)
+    plt.show()
+
+# ----------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
     # plot_interaction_length()
     # plot_interaction_length_inverted_colors()
-    plot_interaction_length_TENDL2023()
+    # plot_interaction_length_TENDL2023()
+    plot_interaction_length_difference_percentages()
 
 # ----------------------------------------------------------------------------------------------------
