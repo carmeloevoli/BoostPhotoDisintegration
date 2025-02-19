@@ -77,7 +77,7 @@ def plot_cross_section_v2r4(A, Z):
     plt.gca().add_artist(at)	
     
     plt.yscale('log')
-    plt.xlabel(r"Photon energy$'\: \rm [MeV]$")
+    plt.xlabel(r"Photon energy$\: \rm [MeV]$")
     plt.ylabel(r'Nonelastic cross section$\: \rm [mb]$')
     plt.legend(title = 'Channel')
     plt.savefig('../figures/cross-sections/cross_section_v2r4_A{0:03}Z{1:03}.pdf'.format(int(A), int(Z)), bbox_inches = 'tight')
@@ -87,7 +87,7 @@ def plot_cross_section_v2r4(A, Z):
 # ----------------------------------------------------------------------------------------------------
 def plot_all_cross_sections_v2r4():
 
-    params = np.loadtxt('../../tables/v2r4/xsect_Gauss2_TALYS-restored.txt', skiprows=2)
+    params = np.loadtxt('../../tables/v2r4/xsect_Gauss2_TALYS-restored.txt', skiprows = 2)
     params = params[:-3]
 
     plt.figure()

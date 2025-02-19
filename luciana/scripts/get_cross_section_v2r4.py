@@ -22,7 +22,7 @@ def cross_section_Model4(A, Z, ipart):
     else:
         raise ValueError(f'Invalid particle type: {ipart}')
     
-    eps = np.logspace(0, np.log10(eps_max), num = 100)
+    eps = np.logspace(0, np.log10(eps_max), num = 500) 
     cross_section = np.zeros_like(eps)
 
     mask1 = (eps > t) & (eps < eps_1)
