@@ -23,6 +23,7 @@ xs_models = ['v2r4', 'TENDL-2023']
 
 # Investigate why negative values of interaction length are appearing for the case of 28Si using TENDL-2023
 # Add a second y-axis with a comparison of distances to known astrophysical objects
+# I need to change interaction length to energy loss length 
 
 # ----------------------------------------------------------------------------------------------------
 def get_legend(A, Z):
@@ -68,7 +69,7 @@ def get_color_inverted_colors(A, Z):
         return '#ADFF2F'
 
 # ----------------------------------------------------------------------------------------------------
-def plot_interaction_length():
+def plot_energy_loss_length():
 
     plt.figure()
     plt.axhline(c/H0/Mpc, color = 'gray', ls = ':') # Adiabatic losses
@@ -100,21 +101,21 @@ def plot_interaction_length():
     print()
 
     TENDL2023 = lines.Line2D([], [], color = 'black', ls = '-', label = 'TENDL-2023')
-    v2r4 = lines.Line2D([], [], color = 'black', ls = '--', label = r'$SimProp$ v2r4')
+    v2r4 = lines.Line2D([], [], color = 'black', ls = '--', label = r'SimProp v2r4')
     lgnd = plt.legend(title = 'Cross section', handles = [TENDL2023, v2r4], frameon = True, loc = 'lower left')	
     plt.gca().add_artist(lgnd)
 
     plt.yscale('log')
     plt.ylim(top = 1.e4)
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
-    plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
+    plt.ylabel(r'Energy loss length$\: \rm [Mpc]$')
     plt.legend(title = 'Nucleus', loc = 'lower left', bbox_to_anchor = (0., 0.239))
-    plt.savefig('../figures/interactionLength.pdf', bbox_inches = 'tight')
-    plt.savefig('../figures/interactionLength.png', bbox_inches = 'tight', dpi = 600)
+    plt.savefig('../figures/energy_loss_length.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/energy_loss_length.png', bbox_inches = 'tight', dpi = 600)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
-def plot_interaction_length_inverted_colors():
+def plot_energy_loss_length_inverted_colors():
 
     fig, ax = plt.subplots()
 
@@ -152,7 +153,7 @@ def plot_interaction_length_inverted_colors():
     plt.yscale('log')
     plt.ylim(top = 1.e4)
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
-    plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
+    plt.ylabel(r'Energy loss length$\: \rm [Mpc]$')
     
     fig.patch.set_alpha(0) 
     ax.set_facecolor('none')  
@@ -170,12 +171,12 @@ def plot_interaction_length_inverted_colors():
 
     ax.grid(color = 'gray', linewidth = 0.5)
 
-    plt.savefig('../figures/interactionLength_invertedColors.pdf', bbox_inches = 'tight')
-    plt.savefig('../figures/interactionLength_invertedColors.png', bbox_inches = 'tight', dpi = 600)
+    plt.savefig('../figures/ELL_inverted_colors.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/ELL_inverted_colors.png', bbox_inches = 'tight', dpi = 600)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
-def plot_interaction_length_TENDL2023():
+def plot_energy_loss_length_TENDL2023():
 
     plt.figure()
     plt.axhline(c/H0/Mpc, color = 'gray', ls = ':') # Adiabatic losses
@@ -205,14 +206,14 @@ def plot_interaction_length_TENDL2023():
     plt.xlim([19,22])
     plt.ylim(top = 1.e4)
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
-    plt.ylabel(r'Interaction length$\: \rm [Mpc]$')
+    plt.ylabel(r'Energy loss length$\: \rm [Mpc]$')
     plt.legend(title = 'Nucleus', loc = 'lower left')
-    plt.savefig('../figures/interactionLength_TENDL2023.pdf', bbox_inches = 'tight')
-    plt.savefig('../figures/interactionLength_TENDL2023.png', bbox_inches = 'tight', dpi = 300)
+    plt.savefig('../figures/ELL_TENDL2023.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/ELL_TENDL2023.png', bbox_inches = 'tight', dpi = 300)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
-def plot_interaction_length_difference_percentages():
+def plot_energy_loss_length_relative_difference():
 
     plt.figure()
 
@@ -227,23 +228,22 @@ def plot_interaction_length_difference_percentages():
                 break
 
         plt.plot(np.log10(data[:,0][iE:]), data[:,1][iE:], color = get_color(A, Z), label = '{}'.format(get_legend(A, Z)))
-        print(Z, iE)
 
     plt.yscale('log')
     plt.ylim([1.e-1, 1.e2])
     plt.xlabel(r'$\log_{10}({\rm Energy/eV})$')
     plt.ylabel(r'Relative difference$\: [\%]$')
     plt.legend(title = 'Nucleus', loc = 'lower left')
-    plt.savefig('../figures/interactionLengthRelativeDifferences.pdf', bbox_inches = 'tight')
-    plt.savefig('../figures/interactionLengthRelativeDifferences.png', bbox_inches = 'tight', dpi = 300)
+    plt.savefig('../figures/ELL_relative_difference.pdf', bbox_inches = 'tight')
+    plt.savefig('../figures/ELL_relative_difference.png', bbox_inches = 'tight', dpi = 300)
     plt.show()
 
 # ----------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-    # plot_interaction_length()
-    # plot_interaction_length_inverted_colors()
-    # plot_interaction_length_TENDL2023()
-    plot_interaction_length_difference_percentages()
+    plot_energy_loss_length()
+    plot_energy_loss_length_inverted_colors()
+    plot_energy_loss_length_TENDL2023
+    plot_energy_loss_length_relative_difference()
 
 # ----------------------------------------------------------------------------------------------------
